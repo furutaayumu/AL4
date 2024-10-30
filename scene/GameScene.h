@@ -55,27 +55,6 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summar
 
-//テクスチャ
-	uint32_t textureHandle_ = 0;
-	
-	Model* model_ = nullptr;
-	Model* block_ = nullptr; 
-	ViewProjection viewProjection_;
-
-	Player* player_ = nullptr;
-
-	Tenkyu* tenkyu_ = nullptr;
-	Model* modelSkydome_ = nullptr;
-	
-	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
-
-	//デバックカメラ
-	bool isDebugCameraActive_ = false;
-
-	DebugCamera* debugCamera_ = nullptr;
-
-	//マップチップ
-	MapChipField* mapChipField_;
 	
 
 };
