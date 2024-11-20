@@ -12,6 +12,7 @@
 #include "DebugCamera.h"
 #include "Tenkyu.h"
 #include "MapChipField.h"
+#include "Player.h"
 
 /// <summary>
 /// ゲームシーン
@@ -28,8 +29,6 @@ public: // メンバ関数
 	/// デストラクタ
 	/// </summary>
 	~GameScene();
-
-	void GenerateBlocks();
 
 	/// <summary>
 	/// 初期化
@@ -55,6 +54,15 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summar
 
-	
+	uint32_t textureHandle_ = 0;
 
+	//3dモデル
+	Model* model_ = nullptr;
+
+	//座標
+	WorldTransform worldTransform_;
+	ViewProjection viewProjection_;
+
+	//プレイヤー
+	Player* player_ = nullptr;
 };
