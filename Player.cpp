@@ -40,6 +40,16 @@ void Player::Update() {
 	} else if (input_->PushKey(DIK_DOWN)) {
 		move.y -= kCharacterSpeed;
 	}
+
+	//移動制限
+	const float kMoveLimitX = 34.0f;
+	const float kMoveLimitY = 19.0f;
+	//移動範囲
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+
 	worldTransform_.translation_.x += move.x;
 	worldTransform_.translation_.y += move.y;
 
