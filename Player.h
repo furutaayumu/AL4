@@ -7,6 +7,7 @@ public:
 	void Initialize(Model* model,uint32_t textureHandle_);
 	void Update();
 	void Draw(ViewProjection& viewProjection);
+	void Rotate();
 
 private:
 	WorldTransform worldTransform_;

@@ -29,6 +29,7 @@ void Player::Update() {
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
 
+
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
 	} else if(input_->PushKey(DIK_RIGHT)) {
@@ -40,6 +41,8 @@ void Player::Update() {
 	} else if (input_->PushKey(DIK_DOWN)) {
 		move.y -= kCharacterSpeed;
 	}
+
+
 
 	//移動制限
 	const float kMoveLimitX = 34.0f;
@@ -60,3 +63,15 @@ void Player::Update() {
 }
 
 void Player::Draw(ViewProjection& viewProjection) { model_->Draw(worldTransform_, viewProjection, textureHandle_); }
+
+void Player::Rotate() { 
+	
+	const float kRotSpeed = 0.02f;
+	// 推した方向に回転
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	} else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y += kRotSpeed;
+	}
+}
+
