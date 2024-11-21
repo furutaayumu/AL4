@@ -51,7 +51,7 @@ public:
 	/// </summary>
 	/// <returns>定数バッファ</returns>
 	/// 行列計算
-	void UpdataMatrix();
+	void UpdateMatrix();
 	const Microsoft::WRL::ComPtr<ID3D12Resource>& GetConstBuffer() const { return constBuffer_; }
 
 private:
