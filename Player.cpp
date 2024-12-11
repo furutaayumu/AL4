@@ -1,15 +1,8 @@
 #include "Player.h"
 #include "Matrix.h"
+
 #include <cmath>
-//Vector3 Add(const Vector3& v1, const Vector3& v2) {
-//	Vector3 result;
-//	result.x = (v1.x + v2.x);
-//	result.y = (v1.y + v2.y);
-//	result.z = (v1.z + v2.z);
-//	return result;
-//};
-//
-//Vector3 operator+=(const Vector3& v1, const Vector3& v2) { return Add(v1, v2); }
+
 
 void Player::Initialize(Model* model,uint32_t textureHandle) { 
 	model_ = model;
@@ -22,9 +15,9 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 }
 
 void Player::Update() {
+
+	
 	worldTransform_.matWorld_;
-	// 行列の転送
-	worldTransform_.TransferMatrix();
 
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
@@ -56,22 +49,62 @@ void Player::Update() {
 	worldTransform_.translation_.x += move.x;
 	worldTransform_.translation_.y += move.y;
 
+
+		Attack();
+
+	//弾更新
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
+	}
+
 	worldTransform_.matWorld_ = Matrix::MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
 	worldTransform_.TransferMatrix();
 
+	worldTransform_.UpdateMatrix();
+
 }
 
-void Player::Draw(ViewProjection& viewProjection) { model_->Draw(worldTransform_, viewProjection, textureHandle_); }
+void Player::Draw(ViewProjection& viewProjection) { 
+
+		//弾更新
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
+	}
+
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}
 
 void Player::Rotate() { 
 	
 	const float kRotSpeed = 0.02f;
-	// 推した方向に回転
+	//押した方向に回転
 	if (input_->PushKey(DIK_A)) {
 		worldTransform_.rotation_.y -= kRotSpeed;
 	} else if (input_->PushKey(DIK_D)) {
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
+}
+
+void Player::Attack() {
+	if (input_->PushKey(DIK_SPACE) != 0 && input_->TriggerKey(DIK_SPACE) == 1) {
+		//弾の速度
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0, 0, kBulletSpeed);
+
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_,worldTransform_.translation_,velocity);
+
+		bullets_.push_back(newBullet);
+
+	/*	bullet_ = newBullet;*/
+	}
+}
+
+Player::~Player() {
+	//for (PlayerBullet* bullet : bullets_) {
+	//	delete bullet;
+	//}
+
 }
 

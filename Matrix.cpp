@@ -83,4 +83,4 @@ Matrix4x4 Matrix::MakeAffineMatrix(const Vector3& scale, const Vector3& radian, 
 	    Matrix::Multiply(
 	        Matrix::Multiply(Matrix::MakeRotateXMatrix(radian.x), Matrix::Multiply(Matrix::MakeRotateYMatrix(radian.y), Matrix::MakeRotateZMatrix(radian.z))),
 			Matrix::MakeTranslateMatrix(translate)));
-}
+}	

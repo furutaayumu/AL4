@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Audio.h"
+#include <DirectXGame/audio/Audio.h>
 #include "DirectXCommon.h"
 #include "Input.h"
 #include "Model.h"
