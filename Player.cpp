@@ -16,6 +16,12 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 
 void Player::Update() {
 
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->isDead()) {
+			    delete bullet;
+			    return true;
+		    } return false;
+	});
 	
 	worldTransform_.matWorld_;
 
@@ -91,6 +97,8 @@ void Player::Attack() {
 		//弾の速度
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
+
+		velocity = Matrix::TransformNormal(velocity, worldTransform_.matWorld_);
 
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_,worldTransform_.translation_,velocity);

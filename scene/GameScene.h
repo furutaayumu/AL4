@@ -12,7 +12,7 @@
 #include "DebugCamera.h"
 #include "Tenkyu.h"
 #include "MapChipField.h"
-#include "Player.h"
+#include "Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -55,6 +55,7 @@ private: // メンバ変数
 	/// </summar
 
 	uint32_t textureHandle_ = 0;
+	uint32_t EnemyHandle_ = 0;
 
 	//3dモデル
 	Model* model_ = nullptr;
@@ -65,4 +66,7 @@ private: // メンバ変数
 
 	//プレイヤー
 	Player* player_ = nullptr;
+
+	//敵
+	Enemy* enemy_ = nullptr;
 };

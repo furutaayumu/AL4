@@ -13,6 +13,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() { 
 	delete model_;
 	delete player_;
+	delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -26,21 +27,24 @@ void GameScene::Initialize() {
 
 	// テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("player.jpg");
+	EnemyHandle_ = TextureManager::Load("Enemy.webp");
 
 	//初期化
 	player_ = new Player();
 	player_->Initialize(model_,textureHandle_);
 
-
-	
-	
-	//初期化
+	//敵初期化
+	enemy_ = new Enemy();
+	enemy_->Initialize(model_, EnemyHandle_);
 
 }
 
 void GameScene::Update() {
 	player_->Rotate();
-	player_->Update(); }
+	player_->Update(); 
+
+enemy_->Update();
+}
 
 void GameScene::Draw() {
 
@@ -72,6 +76,8 @@ void GameScene::Draw() {
 
 	//モデル描画
 	player_->Draw(viewProjection_);
+
+	enemy_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

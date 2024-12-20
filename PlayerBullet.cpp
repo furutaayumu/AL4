@@ -2,15 +2,7 @@
 #include "WorldTransform.h"
 #include "Matrix.h"
 #include <cassert>
-Vector3 Add(const Vector3& v1, const Vector3& v2) {
-	Vector3 result;
-	result.x = (v1.x + v2.x);
-	result.y = (v1.y + v2.y);
-	result.z = (v1.z + v2.z);
-	return result;
-};
 
-Vector3 operator+=(const Vector3& v1, const Vector3& v2) { return Add(v1, v2); }
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
 	assert(model);
@@ -25,6 +17,10 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 }
 
 void PlayerBullet::Update() { 
+	if (--deathTimer_ <= 0) {
+		isDead_ = true;
+	}
+
 	worldTransform_.translation_ += velocity_;
 	
 	//worldTransform_.matWorld_ = Matrix::MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
