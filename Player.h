@@ -13,6 +13,7 @@ public:
 	void Rotate();
 	void Attack();
 	~Player();
+	Vector3 GetWorldPosition();
 
 private:
 

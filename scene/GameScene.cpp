@@ -37,13 +37,14 @@ void GameScene::Initialize() {
 	enemy_ = new Enemy();
 	enemy_->Initialize(model_, EnemyHandle_);
 
+	enemy_->SetPlayer(player_);
+
 }
 
 void GameScene::Update() {
 	player_->Rotate();
 	player_->Update(); 
-
-enemy_->Update();
+	enemy_->Update();
 }
 
 void GameScene::Draw() {
