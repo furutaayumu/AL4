@@ -19,6 +19,7 @@ public:
 
 	static Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
 
+	static float Length(const Vector3& v);
 
 };
 

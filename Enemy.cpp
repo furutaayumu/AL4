@@ -1,5 +1,35 @@
 #include "Enemy.h"
 #include "Matrix.h"
+#include "PLayer.h"
+
+float Dot(const Vector3& v1, const Vector3& v2) { return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z; }
+float Length(const Vector3& v) { return std::sqrt(Dot(v, v)); }
+
+static Vector3 Subtract(const Vector3& v1, const Vector3& v2) {
+	Vector3 result;
+	result.x = v1.x - v2.x;
+	result.y = v1.y - v2.y;
+	result.z = v1.z - v2.z;
+
+	// 返り値
+	return result;
+}
+
+	Vector3 Normalize(const Vector3& v) {
+	float length = Length(v);
+	assert(length != 0.0f);
+	return {v.x / length, v.y / length, v.z / length};
+}
+
+		static Vector3 Multiply(const Vector3& v1, const float v2) {
+	Vector3 result;
+	result.x = v1.x * v2;
+	result.y = v1.y * v2;
+	result.z = v1.z * v2;
+
+	// 返り値
+	return result;
+}
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	EnemyHandle_ = textureHandle;
@@ -69,10 +99,18 @@ void Enemy::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, EnemyHandle_); }
 
 void Enemy::Fire() {
-	const float kBulletSpeed = 1.0f;
-	Vector3 velocity(0, 0, -kBulletSpeed);
+	const float kBulletSpeed = -1.0f;
 
 	//velocity = Matrix::TransformNormal(velocity, worldTransform_.matWorld_);
+
+	//弾の速度計算
+	pWorldposition = player_->GetWorldPosition();
+	eWorldposition = Enemy::GetWorldPosition();
+	//ベクトルの正規化
+	Vector3 difference = Subtract(eWorldposition, pWorldposition);
+	Vector3 normalize = Normalize(difference);
+
+	Vector3 velocity = Multiply(normalize, kBulletSpeed);
 
 	EnemyBullet* newBullet = new EnemyBullet();
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
@@ -88,3 +126,14 @@ void Enemy::ApprochIni() {
 	}
 
  }
+
+Vector3 Enemy::GetWorldPosition() {
+	 Vector3 worldPos;
+	 //ワールド行列を取得
+	 worldPos.x = worldTransform_.matWorld_.m[3][0];
+	 worldPos.y = worldTransform_.matWorld_.m[3][1];
+	 worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos; 
+}
+
+void Enemy::OnCollision() {}

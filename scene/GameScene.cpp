@@ -6,7 +6,7 @@
 #include "MathUtilityForText.h"
 #include "MapChipField.h"
 
-
+Vector3 operator-(const Vector3& a, const Vector3& b) { return Vector3(a.x - b.x, a.y - b.y, a.z - b.z); }
 
 GameScene::GameScene() {}
 
@@ -97,4 +97,33 @@ void GameScene::Draw() {
 
 #pragma endregion
 
+}
+
+void GameScene::CheckAllCollisions() { 
+	Vector3 posA, posB; 
+	Vector3 A2B;
+
+	float len;
+	float radius;
+
+	//const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+
+	
+	posA = player_->GetWorldPosition();
+
+	for (EnemyBullet* bullet : enemyBullets) {	
+	//敵弾
+		posB = bullet->GetWorldPosition();
+
+	//AとBの距離
+		A2B = posA - posB;
+		len = Matrix::Length(A2B);
+		radius = player_->GetRadius() + enemy_->GetRadius();
+		if (len <= radius) {
+			player_->OnCollision();
+			bullet->OnCollision();
+		}
+	}
+	
 }

@@ -118,3 +118,14 @@ Player::~Player() {
 
 }
 
+Vector3 Player::GetWorldPosition() {
+	Vector3 worldPos;
+	//ワールド座標取得
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+	return worldPos; 
+}
+
+void Player::OnCollision() {}
+

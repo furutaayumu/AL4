@@ -13,6 +13,7 @@
 #include "Tenkyu.h"
 #include "MapChipField.h"
 #include "Enemy.h"
+#include "Matrix.h"
 
 /// <summary>
 /// ゲームシーン
@@ -44,6 +45,10 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+
+
+	//衝突判定
+	void CheckAllCollisions();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;

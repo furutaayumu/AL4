@@ -89,6 +89,12 @@ Vector3 Matrix::TransformNormal(const Vector3& v, const Matrix4x4& m) {
 	return result; 
 }
 
+float Matrix::Length(const Vector3& v) {
+		float result;
+		result = float(sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z)));
+		return result;
+	}
+
 
 Vector3& operator+=(Vector3& lhv, const Vector3& rhv) {
 	lhv.x += rhv.x;

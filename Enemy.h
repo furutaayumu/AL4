@@ -6,7 +6,7 @@
 #include "EnemyBullet.h"
 #include "Player.h"
 
-	class Player;
+class Player;
 
 class Enemy {
 public:
@@ -15,7 +15,12 @@ public:
 	void Draw(ViewProjection& viewProjection);
 	void Fire();
 	void ApprochIni();
+	Vector3 GetWorldPosition();
+	void OnCollision();
+	//セッター
 	void SetPlayer(Player* player) { player_ = player; }
+	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
+	float GetRadius() { return radius_; }
 
 public:
 	static const int kFireinterval = 60;
@@ -37,8 +42,13 @@ private:
 	EnemyBullet* enemyBullet_;
 	// 弾
 	std::list<EnemyBullet*> bullets_;
+	
 	int32_t FireTimer = 60;
 
 	Player* player_ = nullptr;
 
+	Vector3 pWorldposition;
+	Vector3 eWorldposition;
+
+	float radius_ = 3.0f;
 };
