@@ -27,7 +27,7 @@ void GameScene::Initialize() {
 
 	// テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("player.jpg");
-	EnemyHandle_ = TextureManager::Load("Enemy.webp");
+	EnemyHandle_ = TextureManager::Load("Enemy.png");
 
 	//初期化
 	player_ = new Player();
@@ -120,7 +120,7 @@ void GameScene::CheckAllCollisions() {
 		A2B = posA - posB;
 		len = Matrix::Length(A2B);
 		radius = player_->GetRadius() + enemy_->GetRadius();
-		if (len <= radius) {
+		if (len >= radius) {
 			player_->OnCollision();
 			bullet->OnCollision();
 		}

@@ -1,4 +1,4 @@
-
+#include "Audio.h"
 #include "AxisIndicator.h"
 #include "DirectXCommon.h"
 #include "GameScene.h"
@@ -7,6 +7,8 @@
 #include "TextureManager.h"
 #include "WinApp.h"
 
+// aaaaa
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -14,13 +16,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 汎用機能
 	Input* input = nullptr;
 	Audio* audio = nullptr;
-	AxisIndicator* axisIndicator = nullptr;
-	PrimitiveDrawer* primitiveDrawer = nullptr;
 	GameScene* gameScene = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
-	win->CreateGameWindow(L"LE2D_19_フルタ_アユム");
+	win->CreateGameWindow(L"LE2D_19_フルタアユム");
 
 	// DirectX初期化処理
 	dxCommon = DirectXCommon::GetInstance();
@@ -49,12 +49,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 3Dモデル静的初期化
 	Model::StaticInitialize();
 
-	// 軸方向表示初期化
-	axisIndicator = AxisIndicator::GetInstance();
-	axisIndicator->Initialize();
-
-	primitiveDrawer = PrimitiveDrawer::GetInstance();
-	primitiveDrawer->Initialize();
+	
 #pragma endregion
 
 	// ゲームシーンの初期化
@@ -74,18 +69,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		input->Update();
 		// ゲームシーンの毎フレーム処理
 		gameScene->Update();
-		// 軸表示の更新
-		axisIndicator->Update();
+	
 		// ImGui受付終了
 		imguiManager->End();
+
 		// 描画開始
 		dxCommon->PreDraw();
 		// ゲームシーンの描画
 		gameScene->Draw();
-		// 軸表示の描画
-		axisIndicator->Draw();
-		// プリミティブ描画のリセット
-		primitiveDrawer->Reset();
+	
 		// ImGui描画
 		imguiManager->Draw();
 		// 描画終了
