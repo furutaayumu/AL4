@@ -47,6 +47,8 @@ public://引数を書くところ
 
 	float GetRadius() { return radius_; }
 
+	int GetHp() { return hp_; }
+
 private://関数（メンバ変数）
 	
 
@@ -68,5 +70,6 @@ private://関数（メンバ変数）
 
 	float radius_ = 0.5f;
 
+	int hp_ = 1;
 	//ViewProjection* viewProjection_ = nullptr;
 };

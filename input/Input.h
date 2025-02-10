@@ -70,12 +70,15 @@ public: // メンバ関数
 	/// <returns>トリガーか</returns>
 	bool TriggerKey(BYTE keyNumber) const;
 
+
+	bool ReleseKey(BYTE keyNumber) const;
+
 	/// <summary>
 	/// 全キー情報取得
 	/// </summary>
 	/// <param name="keyStateBuf">全キー情報</param>
 	const std::array<BYTE, 256>& GetAllKey() const { return key_; }
-
+	
 	/// <summary>
 	/// 全マウス情報取得
 	/// </summary>

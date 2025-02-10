@@ -36,6 +36,7 @@ float Dot(const Vector3& v1, const Vector3& v2) { return v1.x * v2.x + v1.y * v2
 	}
 
 void Enemy::Initialize(Model* model,  const Vector3& position,const Vector3&velocity) {
+
 	// 引数として受け取ったデータをメンバ変数に記録する
 	model_ = model;
 
@@ -45,9 +46,7 @@ void Enemy::Initialize(Model* model,  const Vector3& position,const Vector3&velo
 	worldTransform_.Initialize();
 
 	//初期座標の初期化
-	worldTransform_.translation_ = position;
-
-	worldTransform_.translation_ = {0.0f, 30.0f, 0.0f};
+	worldTransform_.translation_ = position; 
 
 	//移動の初期化
 	 velocity_=velocity;
@@ -76,10 +75,8 @@ void Enemy::Update() {
 	switch (phase_) {
 	case Enemy::Phase::Approach:	
 	default:
-		
-
 		//移動（ベクトルを加算）
-		worldTransform_.translation_.y -= 0.1f;
+		worldTransform_.translation_.z += -0.1f;
 
 		 // 敵の発射関数の呼び出し
 		if (fireTimer<=0) {
@@ -90,7 +87,7 @@ void Enemy::Update() {
 			fireTimer--;
 		}
 		//規定の位置に到達したら離脱
-		if (worldTransform_.translation_.y < 0.0f)
+		if (worldTransform_.translation_.z < 0.0f)
 		{
 			phase_ = Phase::Leave;	
 		}
@@ -101,7 +98,7 @@ void Enemy::Update() {
 		worldTransform_.translation_ += Vector3(0.0f,0.1f,0.0f);
 		break;
 	}
-
+	
 	for (std::shared_ptr<EnemyBullet> bullet : bullets_) {
 		bullet->Update();
 	}
@@ -167,4 +164,6 @@ Vector3 Enemy::GetWorldPosition()
 	return worldPos;
 }
 
-void Enemy::OnCollision() {}
+void Enemy::OnCollision() {
+	hp_--;
+}

@@ -34,6 +34,8 @@ public://引数を書くところ
 
 	float GetRadius() { return radius_; }
 
+	int GetHp() { return hp_; }
+
 private: // メンバ関数
 	
 	// ワールド変換データ
@@ -84,4 +86,6 @@ private: // メンバ関数
 	std::list<EnemyBullet*> enemybullets_;
 
 	float radius_ = 3.0f;
+
+	int hp_ = 1;
 };
